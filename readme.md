@@ -1,8 +1,8 @@
-# PROJETO CALCULADORA - FASE 3
-  Este é um programa em Python implementado para a realização da validação léxica e sintática das expressões contidas nos arquivos de teste disponivéis. Além de analisar os tipos de cada operando das expressões válidas, gerando um txt com as expressões, os tipos dos operandos, a regra de sequentes usada para validar estes tipos e o tipo da expressão final.
+# CALCULATOR PROJECT - PHASE 3
+This is a Python program designed to perform lexical and syntactic validation of expressions contained in available test files. It also analyzes the types of each operand in valid expressions, generating a text file with the expressions, operand types, the sequence rule used to validate these types, and the final expression type.
 
-## Execução do programa
-Caso só estejam disponíveis os arquivos: <br />
+## Running the program
+If only the following files are available: <br />
 analisador.py <br />
 formulas1.txt <br />
 formulas2.txt <br />
@@ -10,13 +10,13 @@ formulas3.txt <br />
 MEFAnalisadorLexico.png <br />
 readme.md <br />
 TabelaDerivacao.png <br />
-Rode o comando: antlr4 -Dlanguage=Python3 Sintatico.g4<br><br> 
-Caso contrário apenas faça:<br />
+Run the command: antlr4 -Dlanguage=Python3 Sintatico.g4<br><br>
+Otherwise, just do the following: <br />
 --- Replit Shell <br />
 python analisador.py 'formulasn' <br />
-Onde n pode assumir os valores de: 1, 2 e 3. <br />
+Where n can be: 1, 2, or 3. <br />
 
-### Exemplo de um padrão válido de expressões
+### Example of a valid expression pattern
 (8 16 -) <br />
 (48 (16 1 -) |) <br />
 ((5 RES) MEM) <br />
@@ -30,79 +30,79 @@ Onde n pode assumir os valores de: 1, 2 e 3. <br />
 (for i in range(MEM): MEM -= 10) <br />
 (2 MEM +) <br />
 
-  Ademais, as expressões válidas são separdas em tokens, os quais são utilizados para gerar uma string de tokens.
-  
-  Após a realização da análise léxica o programa faz a validação sintática das expressões que não apresentaram erro léxico. Para uma análise correta o analisador sintático foi desenvolvido através das regras de produção criadas e da tabela LL(1).
+Additionally, valid expressions are separated into tokens, which are used to generate a token string.
 
-  Além disso, o programa gera a respectiva árvore sintática para as regras de produção criadas e validadas com FIRST e FOLLOW para LL(1).
-  
-## Analisador léxico com máquina de estados finitos
-### - Diagrama de transição da máquina de estados finitos
+After performing lexical analysis, the program validates the syntax of expressions that have no lexical errors. For correct analysis, the syntactic analyzer was developed based on the production rules created and the LL(1) table.
+
+Moreover, the program generates the corresponding syntax tree for the production rules created and validated with FIRST and FOLLOW for LL(1).
+
+## Lexical Analyzer with Finite State Machine
+### - Finite State Machine Transition Diagram
 <img src="MEFAnalisadorLexico.png"><br>
-  A máquina de estados finitos criada para o analisador léxico usa de base a estrutura de expressões válidas citada anteriormente. Sua funcionalidade consiste em:
+The finite state machine created for the lexical analyzer is based on the structure of valid expressions mentioned earlier. Its functionality consists of:
 
-#### 1º estado:
-Verifica se o dado consiste em um parênteses aberto '('
+#### 1st state:
+Checks if the input consists of an open parenthesis '('
 
-#### 2º estado:
-Verifica se o dado consiste em um parênteses fehcado ')'
+#### 2nd state:
+Checks if the input consists of a closing parenthesis ')'
 
-#### 3º estado:
-Verifica se o dado consiste em um número (int ou float)
+#### 3rd state:
+Checks if the input consists of a number (int or float)
 
-#### 4º estado:
-Verifica se o dado consiste em um operador aritmético ('+', '-', '*', '|', '/', '%', '^')
+#### 4th state:
+Checks if the input consists of an arithmetic operator ('+', '-', '*', '|', '/', '%', '^')
 
-#### 5º estado:
-Verifica se o dado consiste em 'MEM'
+#### 5th state:
+Checks if the input consists of 'MEM'
 
-#### 6º estado:
-Verifica se o dado consiste em 'RES'
+#### 6th state:
+Checks if the input consists of 'RES'
 
-#### 7º estado:
-Verifica se o dado consiste em 'if'
+#### 7th state:
+Checks if the input consists of 'if'
 
-#### 8º estado:
-Verifica se o dado consiste em 'else:'
+#### 8th state:
+Checks if the input consists of 'else:'
 
-#### 9º estado:
-Verifica se o dado consiste em 'for'
+#### 9th state:
+Checks if the input consists of 'for'
 
-#### 10º estado:
-Verifica se o dado consiste em comparador ('==', '<', '>', '<=', '>=', '!=' ou 'in', 'not in' ou '=', '+=', '-=', '*=', '/=', '%=', '^=', '|=')
+#### 10th state:
+Checks if the input consists of a comparator ('==', '<', '>', '<=', '>=', '!=' or 'in', 'not in' or '=', '+=', '-=', '*=', '/=', '%=', '^=', '|=')
 
-#### 11º estado:
-Verifica se o dado consiste em uma constante ('i', 'range', ':')
+#### 11th state:
+Checks if the input consists of a constant ('i', 'range', ':')
 
-  A verificação é realizada de forma linear, onde a máquina verifica o estado 1, se não for válido passa para o estado 2, dessa forma, se ela chegar até o estado 11 e o mesmo também não for válido ela vai para o estado de erro apontando assim, o erro léxico. Caso a validação seja feita em algum estado, a máquina vai para o estado de resto, onde é verificado se a expressão ainda tem algo a ser analisado. Se a string chegou ao fim a máquina é finalizada, mas se a expressão é aninhada a máquina volta para as verificações novamente.
+The verification is done linearly, where the machine checks state 1. If invalid, it moves to state 2. If it reaches state 11 and it is also invalid, it transitions to the error state, pointing out the lexical error. If the validation is successful in any state, the machine moves to the next state to check if there is more to analyze. If the string reaches the end, the machine finishes, but if the expression is nested, the machine re-enters the verification process.
 
-## Analisador sintático
-### Regras de produção
+## Syntactic Analyzer
+### Production Rules
 
-E → (op op operando)<br><br>
-operando → + OR - OR * OR / OR | OR % OR ^ OR M OR R OR F OR I <br><br>
-F → for i ob range ( M ) : M oat n <br><br> 
+E → (op op operand)<br><br>
+operand → + OR - OR * OR / OR | OR % OR ^ OR M OR R OR F OR I <br><br>
+F → for i ob range ( M ) : M oat n <br><br>
 I → if M opr n : M oat n e <br><br>
 e → else : M oat n | $ <br><br>
 opr → == OR < OR > OR <= OR >= OR != <br><br>
 ob → in OR notIn <br><br>
-oat → = OR += OR -= <br><br> 
-op → n OR E OR M OR $ <br><br> 
-n → num <br><br> 
-M → mem <br><br> 
-R → res <br><br> 
+oat → = OR += OR -= <br><br>
+op → n OR E OR M OR $ <br><br>
+n → num <br><br>
+M → mem <br><br>
+R → res <br><br>
 
-Signicado de siglas:<br><br> 
-E: Expressao<br>
-oat: Operador de atribuição<br>
-ob: Operador de busca<br>
-opr: Operador relacional<br>
+Meaning of abbreviations:<br><br>
+E: Expression<br>
+oat: Assignment operator<br>
+ob: Search operator<br>
+opr: Relational operator<br>
 num: [0..9]+ OR [0-9]+\.[0-9]+ <br>
 
-### Conjuntos de FIRST E FOLLOW
+### FIRST and FOLLOW Sets
 FIRST(S) = {(}<br>
 FIRST(E) = {(}<br>
-FIRST(operando) = {+, -, *, /, |, %, ^, mem, res, for, if}<br>
+FIRST(operand) = {+, -, *, /, |, %, ^, mem, res, for, if}<br>
 FIRST(F) = {for}<br>
 FIRST(I) = {if}<br>
 FIRST(e) = {else, $}<br>
@@ -115,36 +115,36 @@ FIRST(M) = {mem}<br>
 FIRST(R) = {res}<br>
 
 FOLLOW(S) = {$}<br>
-FOLLOW(E) = {+, -, *, /, |, %, ^, mem, res, for, if, (, $, num}<br>
-FOLLOW(operando) = {)}<br>
+FOLLOW(E) = {+, -, *, /, |, %, ^, mem, res, for, if, (, $, num}<br>
+FOLLOW(operand) = {)}<br>
 FOLLOW(F) = {)}<br>
 FOLLOW(I) = {)}<br>
 FOLLOW(e) = {)}<br>
 FOLLOW(opr) = {num}<br>
 FOLLOW(ob) = {range}<br>
 FOLLOW(oat) = {num}<br>
-FOLLOW(op) = {+, -, *, /, |, %, ^, mem, res, for, if, (, $, num}<br>
-FOLLOW(n) = {), else, $, :, +, -, *, /, |, %, ^, mem, res, for, if, (, num}<br>
-FOLLOW(M) = {), =, +=, -=, ==, <, >, <=, >=, !=, +, -, *, /, |, %, ^, mem, res, for, if, (, $, num}<br>
+FOLLOW(op) = {+, -, *, /, |, %, ^, mem, res, for, if, (, $, num}<br>
+FOLLOW(n) = {), else, $, :, +, -, *, /, |, %, ^, mem, res, for, if, (, num}<br>
+FOLLOW(M) = {), =, +=, -=, ==, <, >, <=, >=, !=, +, -, *, /, |, %, ^, mem, res, for, if, (, $, num}<br>
 FOLLOW(R) = {)}<br>
 
-### Tabela de derivação
+### Derivation Table
 <img src="TabelaDerivacao.png"><br>
-  Após a criação das regras de produção com o First e Follow para o LL(1) e da tabela de derivação, foi desenvolvido um analisador sintático através do ANTLR, dessa forma, o mesmo respeita a gramática criada.
+After creating the production rules with First and Follow for LL(1) and the derivation table, a syntactic analyzer was developed using ANTLR, ensuring it follows the defined grammar.
 
-  Ademais, foram feito tratamentos para preencher os espaços vazios entre parêntese com $, pois assim, o analisador sintático pode realizar a validação de forma correta.
+Moreover, treatments were done to fill in the empty spaces between parentheses with $, allowing the syntactic analyzer to validate correctly.
 
-## Analisador de tipos
-### Regras de sequentes
-  Regra de sequentes: tipoNumero(int or float) tipoNumero2(int or float) tipoResultado(int or float).
-### Funcionamento
-  Analisa os tipos dos operando. Essa análise percorren a pilha de dados a partir dos nós filhos, registrando em um arquivo txt com as expressões, os tipos dos operandos, a regra de sequentes usada para validar estes tipos e o tipo da expressão final.
-### Arquivo txt com a análise de tipos
-  Nome do arquivo AnaliseDeTipos.txt
-  Conteúdo do arquivo:
-  Expressao: ((90 5 /) (4 3 *) +)
-  Regra de sequentes: tipoNumero(int or float) tipoNumero2(int or float) tipoResultado(int or float)
-    -> Tipo número 90: <class 'int'> -> Tipo número 5: <class 'int'> -> Tipo resultado 18: <class 'int'>
-    -> Tipo número 4: <class 'int'> -> Tipo número 3: <class 'int'> -> Tipo resultado 12: <class 'int'>
-    -> Tipo número 18: <class 'int'> -> Tipo número 12: <class 'int'> -> Tipo resultado 30: <class 'int'>
-    -> Tipo resposta expressao: <class 'int'> 
+## Type Analyzer
+### Sequence Rules
+  Sequence Rule: tipoNumero(int or float) tipoNumero2(int or float) tipoResultado(int or float).
+### Functionality
+  It analyzes the operand types. This analysis traverses the data stack from the child nodes, recording in a txt file with the expressions, operand types, the sequence rule used to validate these types, and the final expression type.
+### Txt File with Type Analysis
+  File name: `AnaliseDeTipos.txt`
+  File content:
+  Expression: ((90 5 /) (4 3 *) +)
+  Sequence rule: tipoNumero(int or float) tipoNumero2(int or float) tipoResultado(int or float)
+    -> Number type 90: <class 'int'> -> Number type 5: <class 'int'> -> Result type 18: <class 'int'>
+    -> Number type 4: <class 'int'> -> Number type 3: <class 'int'> -> Result type 12: <class 'int'>
+    -> Number type 18: <class 'int'> -> Number type 12: <class 'int'> -> Result type 30: <class 'int'>
+    -> Final expression type: <class 'int'>
