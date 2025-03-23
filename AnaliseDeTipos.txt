@@ -1,0 +1,22 @@
+Expressao: (2 (2 (2 (2 2 *) *) *) *)
+  Regra de sequentes: tipoNumero(int or float) tipoNumero2(int or float) tipoResultado(int or float)
+    -> Tipo número 2: <class 'int'> -> Tipo número 2: <class 'int'> -> Tipo resultado 4: <class 'int'>
+    -> Tipo número 4: <class 'int'> -> Tipo número 2: <class 'int'> -> Tipo resultado 8: <class 'int'>
+    -> Tipo número 8: <class 'int'> -> Tipo número 2: <class 'int'> -> Tipo resultado 16: <class 'int'>
+    -> Tipo número 16: <class 'int'> -> Tipo número 2: <class 'int'> -> Tipo resultado 32: <class 'int'>
+    -> Tipo resposta expressao = 32: <class 'int'> 
+Expressao: (12 MEM +)
+  Regra de sequentes: tipoNumero(int or float) tipoNumero2(int or float) tipoResultado(int or float)
+    -> Tipo número 12: <class 'int'> -> Tipo número 0: <class 'int'> -> Tipo resultado 12: <class 'int'>
+    -> Tipo resposta expressao = 12: <class 'int'> 
+Expressao: ((4 5 %) (3 8 *) /)
+  Regra de sequentes: tipoNumero(int or float) tipoNumero2(int or float) tipoResultado(int or float)
+    -> Tipo número 4: <class 'int'> -> Tipo número 5: <class 'int'> -> Tipo resultado 4: <class 'int'>
+    -> Tipo número 3: <class 'int'> -> Tipo número 8: <class 'int'> -> Tipo resultado 24: <class 'int'>
+    -> Tipo número 4: <class 'int'> -> Tipo número 24: <class 'int'> -> Tipo resultado 0: <class 'int'>
+    -> Tipo resposta expressao = 0: <class 'int'> 
+Expressao: (((2 3 ^) 2 -) 2 /)  Regra de sequentes: tipoNumero(int or float) tipoNumero2(int or float) tipoResultado(int or float)
+    -> Tipo número 2: <class 'int'> -> Tipo número 3: <class 'int'> -> Tipo resultado 8: <class 'int'>
+    -> Tipo número 8: <class 'int'> -> Tipo número 2: <class 'int'> -> Tipo resultado 6: <class 'int'>
+    -> Tipo número 6: <class 'int'> -> Tipo número 2: <class 'int'> -> Tipo resultado 3: <class 'int'>
+    -> Tipo resposta expressao = 3: <class 'int'> 
